@@ -80,7 +80,7 @@ ENTRYPOINT ["dotnet", "BlazorApp1.Server.dll"]
 Try and build that docker image:
 
 ```
-BlazorApp1> docker build -f .\BlazorApp1\Server\Dockerfile .
+HxGrid_510\src> docker build -f .\BlazorApp1\Server\Dockerfile .
 ```
 
 And it fails on;
