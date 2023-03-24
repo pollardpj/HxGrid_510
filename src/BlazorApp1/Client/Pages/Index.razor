@@ -3,24 +3,27 @@
 <PageTitle>Index</PageTitle>
 
 <HxGrid TItem="GridDataRow" DataProvider="GetGridDataRowData" SelectionEnabled="false">
-    <Columns>
-        <HxGridColumn ItemTextSelector="@(context => context.Value)">
-            <HeaderTemplate>
-                <span>The Value</span>
-            </HeaderTemplate>
-        </HxGridColumn>
-    </Columns>
+	<Columns>
+		<HxGridColumn ItemTextSelector="@(context => context.Value)" HeaderTemplate="RenderHeaderTemplate" />
+	</Columns>
 </HxGrid>
 
 @code {
 
-    private async Task<GridDataProviderResult<GridDataRow>> GetGridDataRowData(GridDataProviderRequest<GridDataRow> request)
-    {
-        var results = new List<GridDataRow>
-        {
-            new GridDataRow { Value = "One" }
-        };
+	private RenderFragment<GridHeaderCellContext> RenderHeaderTemplate => context => builder =>
+	{
+		builder.OpenElement(1, "span");
+		builder.AddContent(2, "The Value");
+		builder.CloseElement();
+	};
 
-        return await Task.FromResult(request.ApplyTo(results));
-    }
+	private async Task<GridDataProviderResult<GridDataRow>> GetGridDataRowData(GridDataProviderRequest<GridDataRow> request)
+	{
+		var results = new List<GridDataRow>
+		{
+			new GridDataRow { Value = "One" }
+		};
+
+		return await Task.FromResult(request.ApplyTo(results));
+	}
 }
